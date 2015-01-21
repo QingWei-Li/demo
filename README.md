@@ -1,4 +1,4 @@
 # demo
 some trick
 
-link: (demo.cinwell.com)[demo.cinwell.com]
+link: [demo.cinwell.com](demo.cinwell.com)
