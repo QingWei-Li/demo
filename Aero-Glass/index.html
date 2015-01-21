@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aero Glass Demo</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+ 
+    <style>
+    body{
+        font-family: Arial, "Helvetica Neue", Helvetica, "Microsoft YaHei",sans-serif;
+        color: #fff;
+        text-align: center;
+    }
+    body,#content:before{
+        background-image: url(cover.jpg);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+    .containter{
+        position: relative;
+        margin: 0 auto;
+        width: 60%;
+    }
+    #content,#content:before{
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    #content{
+        width: 80%;
+        padding: 10%;
+        min-height: 1000px;
+        margin: 200px 0;
+    }
+    #content h5{
+        margin-bottom: 60px;
+    }
+    #content:before{
+        content: "";
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        -webkit-filter: blur(10px);
+        -moz-filter: blur(10px);
+        filter: blur(10px);
+        filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false);/*据说支持IE6-9*/
+    }
+    .part:first-child{
+        margin-bottom: 100px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 100px;
+    }
+    </style>
+</head>
+<body>
+    <div class="containter">
+        <div id="content" class="card">
+            <div class="part">
+                <h1>Do not go gentle into that good night</h1>
+                <h5>Dylan Thomas</h5>
+                <p>Do not go gentle into that good night,</p>
+                <p>Old age should burn and rave at close of day;</p>
+                <p>Rage, rage against the dying of the light.</p>
+                <br>
+                <p>Though wise men at their end know dark is right,</p>
+                <p>Because their words had forked no lightning they</p>
+                <p>Do not go gentle into that good night.</p>
+                <br>
+                <p>Good men, the last wave by, crying how bright</p>
+                <p>Their frail deeds might have danced in a green bay,</p>
+                <p>Rage, rage against the dying of the light.</p>
+                <br>
+                <p>Wild men who caught and sang the sun in flight,</p>
+                <p>And learn, too late, they grieved it on its way,</p>
+                <p>Do not go gentle into that good night.</p>
+                <br>
+                <p>Grave men, near death, who see with blinding sight</p>
+                <p>Blind eyes could blaze like meteors and be gay,</p>
+                <p>Rage, rage against the dying of the light.</p>
+                <br>
+                <p>And you, my father, there on the sad height,</p>
+                <p>Curse, bless me now with your fierce tears, I pray.</p>
+                <p>Do not go gentle into that good night.</p>
+                <p>Rage, rage against the dying of the light.</p>
+            </div>
+            <div class="part">
+                <h1>不要温和地走进那个良夜</h1>
+                <h5>狄兰·托马斯</h5>
+                <p>不要温和地走进那个良夜，</p>
+                <p>老年应当在日暮时燃烧咆哮；</p>
+                <p>怒斥，怒斥光明的消逝。</p>
+                <br>
+                <p>虽然智慧的人临终时懂得黑暗有理，</p>
+                <p>因为他们的话没有迸发出闪电，他们</p>
+                <p>也并不温和地走进那个良夜。</p>
+                <br>
+                <p>善良的人，当最后一浪过去，高呼他们脆弱的善行</p>
+                <p>可能曾会多么光辉地在绿色的海湾里舞蹈，</p>
+                <p>怒斥，怒斥光明的消逝。</p>
+                <br>
+                <p>狂暴的人抓住并歌唱过翱翔的太阳，</p>
+                <p>懂得，但为时太晚，他们使太阳在途中悲伤，</p>
+                <p>也并不温和地走进那个良夜。</p>
+                <br>
+                <p>严肃的人，接近死亡，用炫目的视觉看出</p>
+                <p>失明的眼睛可以像流星一样闪耀欢欣，</p>
+                <p>怒斥，怒斥光明的消逝。</p>
+                <br>
+                <p>您啊，我的父亲．在那悲哀的高处．</p>
+                <p>现在用您的热泪诅咒我，祝福我吧．我求您</p>
+                <p>不要温和地走进那个良夜。</p>
+                <p>怒斥，怒斥光明的消逝。</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
