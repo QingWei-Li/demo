@@ -1,0 +1,58 @@
+/* 不管为哪个元素应用什么颜色，都要同时给它设置一个背景色。否则可能导致意外，看不见某些文本 */
+body{
+	color: #FB5;
+	background-color: #334;
+}
+a:link{
+	color: 445;
+	background-color: #EB6;
+}
+a:visited{
+	color: #345;
+	background-color: #EB6;
+}
+a:hover{
+	color: #667;
+	background-color: #FB5;
+}
+a:active{
+	color: #778;
+	background-color: #EC8;
+}
+header{
+	color: #EC8;
+	background-color: #334;
+	border-color: #667;
+}
+header nav{
+	color: #445;
+	background-color: #789;
+}
+article{
+	color: #233;
+	background-color: #EDC;
+	border-color: #667;
+}
+header nav ul{
+	border-color: #99A;
+}
+header nav a:link,header nav a:visited{
+	color: #EEF;
+	background-color: transparent;
+	border-color: #99A;
+}
+header nav a:hover{
+	color: 445;
+	background-color: #EB6;
+}
+header nav a:active{
+	color: #667;
+	background-color: #EC8;
+}
+article img{
+	border-color: #BA9;
+	outline-color: #DCB;
+}
+#imagegallery a{
+	background-color: transparent;
+}
