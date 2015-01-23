@@ -1,4 +1,4 @@
 # demo
-some trick
+some effect
 
 link: [demo.cinwell.com](http://demo.cinwell.com)
