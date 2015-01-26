@@ -397,6 +397,7 @@ function submitFormWithAjax (whichform,thetarget) {
 		dataParts[i] = element.name + '=' + encodeURIComponent(element.value);
 	};
 	var data = dataParts.join('&');
+	//因为我用的是Github的服务器，不支持Post请求
 	request.open('GET',whichform.getAttribute('action'),true);
 	request.setRequestHeader('Content-type','application/x-www-form-urlencoded');
 	request.onreadystatechange = function () {
