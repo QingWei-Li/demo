@@ -79,3 +79,6 @@ tr.highlight td{
 	color: #223;
 	background-color: #CBA;
 }
+form .placeholder{
+	color: grey;
+}
