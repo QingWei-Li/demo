@@ -179,8 +179,8 @@ function showPic (whichpic) {
 		var text = "";
 	}
 	var destination = document.getElementById('destination');
-	if (destination.firstChid.nodeType == 3) {
-		destination.firstChid.nodeValue = text;
+	if (destination.firstChild.nodeType == 3) {
+		destination.firstChild.nodeValue = text;
 	}
 	return false;
 }
@@ -202,7 +202,7 @@ function preparePlaceholder () {
 	var text = document.createTextNode('Choose an image');
 	destination.appendChild(text);
 
-	insertAfter(placeholder,gallery);
+	insertAfter(destination,gallery);
 	insertAfter(placeholder,destination);
 }
 function prepareGallery () {
@@ -217,8 +217,94 @@ function prepareGallery () {
 		}
 	};
 }
+function stripeTables () {
+	if(!document.getElementsByTagName) return false;
+	var table = document.getElementsByTagName('table');
+	for (var i = 0; i < table.length; i++) {
+		var odd = false;
+		var rows = table[i].getElementsByTagName('tr');
+		for (var j = 0; j < rows.length; j++) {
+			if (odd == true) {
+				addClass(rows[j], 'odd');
+				odd = false;
+			}else{
+				odd = true;
+			}
+		};
+	};
+}
+function highlightRows () {
+	if(!document.getElementsByTagName) return false;
+	var rows = document.getElementsByTagName('tr');
+	for (var i = 0; i < rows.length; i++) {
+		rows[i].oldClassName = rows[i].className;
+		rows[i].onmouseover = function  () {
+			addClass(this,'highlight');
+		}
+		rows[i].onmouseout = function () {
+			this.className = this.oldClassName;
+		}
+	};
+}
+function displayAbbreviations () {
+	if(!document.getElementsByTagName) return false;
+	if(!document.createElement) return false;
+	if(!document.createTextNode) return false;
+	var abbreviations = document.getElementsByTagName('abbr');
+	if (abbreviations.length < 1) return false;
+	var defs = new Array();
+	for (var i = 0; i < abbreviations.length; i++) {
+		var current_abbr = abbreviations[i];
+		if (current_abbr.childNodes.length<1) {continue};
+		var definition = current_abbr.getAttribute('title');
+		var key = current_abbr.lastChild.nodeValue;
+		defs[key] = definition;
+	};
+	var dlist = document.createElement('dl');
+	for(key in defs){
+		var definition = defs[key];
+		var dtitle = document.createElement('dt');
+		var dtitle_text = document.createTextNode(key);
+		dtitle.appendChild(dtitle_text);
+		var ddesc = document.createElement('dd');
+		var ddesc_text = document.createTextNode(definition);
+		ddesc.appendChild(ddesc_text);
+		dlist.appendChild(dtitle);
+		dlist.appendChild(ddesc);
+	}
+	if(dlist.childNodes.length<1)return false;
+	var header = document.createElement('h3');
+	var header_text = document.createTextNode('Abbreviations');
+	header.appendChild(header_text);
+	var articles = document.getElementsByTagName('article');
+	if (articles.length == 0 ) {return false};
+	var container = articles[0];
+	container.appendChild(header);
+	container.appendChild(dlist);
+
+}
+//单击标签，焦点移动到标签对应的input标签上。少数浏览器不支持，利用该函数实现
+function focusLabels () {
+	if(!document.getElementsByTagName) return false;
+	var labels = document.getElementsByTagName('label');
+	for (var i = 0; i < labels.length; i++) {
+		if(!labels[i].getAttribute('for')) continue;
+		labels[i].onclick = function () {
+			var id = this.getAttribute('for');
+			if(!document.getElementById(id)) return false;
+			var element = document.getElementById(id);
+			element.focus();
+		}
+	};
+}
 addLoadEvent(highlightPage);
 addLoadEvent(prepareSlideShow);
 addLoadEvent(prepareInternalnav);
 addLoadEvent(preparePlaceholder);
 addLoadEvent(prepareGallery);
+
+addLoadEvent(stripeTables);
+addLoadEvent(highlightRows);
+addLoadEvent(displayAbbreviations);
+
+addLoadEvent(focusLabels);

@@ -63,3 +63,19 @@ header nav a.here:active{
 	color: #EEF;
 	background-color: #799;
 }
+th{
+	color: #EDC;
+	background: #445;
+}
+tr td{
+	color: #223;
+	background-color: #EB6;
+}
+tr.odd td{
+	color: #223;
+	background-color: #EC8;
+}
+tr.highlight td{
+	color: #223;
+	background-color: #CBA;
+}
