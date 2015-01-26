@@ -329,8 +329,7 @@ function prepareForms () {
 		thisform.onsubmit = function () {
 			if(!validateForm(this)) return false;
 			var article = document.getElementsByTagName('article')[0];
-			if (submitFormWithAjax(this,article)) {alert('123');return false;}
-			else{alert('no!!!')}
+			if (submitFormWithAjax(this,article)) {return false};
 			return true;
 		}
 	};
@@ -398,7 +397,7 @@ function submitFormWithAjax (whichform,thetarget) {
 		dataParts[i] = element.name + '=' + encodeURIComponent(element.value);
 	};
 	var data = dataParts.join('&');
-	request.open('POST',whichform.getAttribute('action'),true);
+	request.open('GET',whichform.getAttribute('action'),true);
 	request.setRequestHeader('Content-type','application/x-www-form-urlencoded');
 	request.onreadystatechange = function () {
 		if (request.readyState == 4) {
