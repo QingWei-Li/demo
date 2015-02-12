@@ -125,6 +125,7 @@ var MsgBox = {
 		head.innerHTML = Game.msgHead?Game.msgHead:'游戏结束';
 		p.innerHTML = '你一共消灭了 '+Game.scoreCouple+' 对情侣, 并拯救了 '+ Game.scoreDog+' 条单身狗。';
 		button.innerHTML = '重新开始';
+		document.title = '拍死情侣拯救单身狗计划-我刚才消灭了'+Game.scoreCouple+'对情侣, 拯救了'+ Game.scoreDog+'条单身狗。不服来战';
 	},
 	hide: function () {
 		this.msgBox.style.display = 'none';
