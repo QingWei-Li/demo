@@ -3,7 +3,8 @@ var Game = {
 	holes: [],
 	dogs: [],
 	over: false,
-	message: '',
+	msgHead: '',
+	msgContent: '',
 	remainHoles:[],
 	scoreDog: 0,
 	scoreCouple: 0,
@@ -43,6 +44,7 @@ var Game = {
 						self.addScoreCouple();
 					}else{
 						self.over = true;
+						self.msgHead = '打到狗了！';
 					}
 				};
 				dog.ondrag = function () {
@@ -119,7 +121,9 @@ var MsgBox = {
 		var head = this.msgBox.getElementsByTagName('h2')[0];
 		var p = this.msgBox.getElementsByTagName('p')[0];
 		var button = this.msgBox.getElementsByTagName('button')[0];
-		head.innerHTML = '游戏结束';
+
+		head.innerHTML = Game.msgHead?Game.msgHead:'游戏结束';
+		p.innerHTML = '你一共消灭了 '+Game.scoreCouple+' 对情侣, 并拯救了 '+ Game.scoreDog+' 条单身狗。';
 		button.innerHTML = '重新开始';
 	},
 	hide: function () {
