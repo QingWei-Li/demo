@@ -1,0 +1,13 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+li{
+	float: left;
+	list-style-type: none;
+	border: 1px solid #ccc;
+}
+#main{
+	margin: 0 auto;
+	width: 90%;
+}
