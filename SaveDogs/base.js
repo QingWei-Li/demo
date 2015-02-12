@@ -3,9 +3,9 @@ var Game = {
 	holes: [],
 	dogs: [],
 	dogMap: null,
-	number: MAX_NUMBER,
 	remainHoles:[],
 	init:function () {
+			var self = this;
 			var body = document.getElementsByTagName('body')[0];
 			body.style.width = window.innerWidth + 'px';
 			var main = document.getElementById('main');
@@ -23,37 +23,33 @@ var Game = {
 				//狗初始化
 				var dog = new Dog(parseInt(Math.random()*10)>0?'couple':'dog');
 				dog.onbeat = function () {
-					// body...
+					this.onend();
 				}
 				dog.ondrag = function () {
 					// body...
 				}
 				dog.onend = function () {
-					// body...
+					var li = self.holes[this.hole];
+					li.removeChild(this.info);
+					li.dog = null;
+					self.remainHoles.push(this.hole);
+					console.log(self.remainHoles);
 				}
 				this.dogs.push(dog);
 			}
 
 	},
 	start: function () {
-		if (!this.number) return alert('game over');
-		var num;
-		//这里有bug啊
+		if (!this.remainHoles.length) return alert('game over');
+
 		var r = parseInt(Math.random()*this.remainHoles.length);
-		while(this.holes[r].innerHTML){
-			r = parseInt(Math.random()*this.remainHoles.length);
-		}
-		num = this.remainHoles[r];
+		var num = this.remainHoles[r];
 		this.remainHoles.splice(r,1);
-		console.log('remain:'+this.remainHoles.length);
-		console.log('num:'+num);
-		console.log('r:'+r);
 
 		this.dogs[num].hole = num;
-		this.holes[num].appendChild(this.dogs[num].dog);
+		this.holes[num].appendChild(this.dogs[num].info);
 		this.holes[num].dog = this.dogs[num];
 		
-		this.number--;
 		var self = this;
 		setTimeout(function () {
 			self.start();
@@ -62,43 +58,44 @@ var Game = {
 }
 
 var Dog = function(type){
-	this.dog = null;
+	this.info = null;
 	this.hole = -1;
 	this.init(type);
 }
 Dog.prototype = {
 	init: function (type) {
+		var self = this;
 		type = type || 'couple';
-		this.dog = document.createElement('div');
-		this.dog.mousetype = type;
-		this.dog.isLive = true;
-		this.dog.innerHTML = type;
+		this.info = document.createElement('div');
+		this.info.mousetype = type;
+		this.info.isLive = true;
+		this.info.innerHTML = type;
 
-		this.dog.onclick = function (e) {
-			beat();
+		this.info.onclick = function (e) {
+			self.beat(e);
 		};
-		this.dog.addEventListener('touchmove',function (e) {
+		this.info.addEventListener('touchmove',function (e) {
 			e.preventDefault(); 
-			drag();
+			self.drag(e);
 		});
 	},
-	beat: function () {
-		if(this.dog.isLive){
-			this.dog.isLive = false;
-			onbeat();
-			this.dog.style.display = 'none';
+	beat: function (e) {
+		if(this.info.isLive){
+			this.info.isLive = false;
+			this.onbeat(e);
+			this.info.style.display = 'none';
 		}
 	},
-	drag: function () {
-		if(this.dog.isLive){
-			this.dog.isLive = false;
-			ondrag();
-			this.dog.src = 'none';
+	drag: function (e) {
+		if(this.info.isLive){
+			this.info.isLive = false;
+			this.ondrag();
+			this.info.src = 'none';
 		}
 	},
-	onbeat: function() {},
-	ondrag: function () {},
-	onend: function(){}
+	onbeat: function(e) {},
+	ondrag: function (e) {},
+	onend: function(e){}
 }
 
 Game.init();
