@@ -2,7 +2,8 @@ var MAX_NUMBER = 30;
 var Game = {
 	holes: [],
 	dogs: [],
-	dogMap: null,
+	over: false,
+	message: '',
 	remainHoles:[],
 	init:function () {
 			var self = this;
@@ -23,25 +24,35 @@ var Game = {
 				//狗初始化
 				var dog = new Dog(parseInt(Math.random()*10)>0?'couple':'dog');
 				dog.onbeat = function () {
-					this.onend();
-				}
+					if(this.info.type == 'couple'){
+						this.onend();
+					}else{
+						self.over = true;
+					}
+				};
 				dog.ondrag = function () {
-					// body...
-				}
+					if(this.info.type == 'dog'){
+						this.onend();
+					}else{
+						self.over = true;
+					}
+				};
 				dog.onend = function () {
-					console.log(this.hole);
 					var li = self.holes[this.hole];
 					li.removeChild(li.dog.info);
-					li.dog = null;
-
+					
+					this.info.isLive = true;
+					var type = parseInt(Math.random()*8)>0?'couple':'dog';
+					this.info.type = type;
+					this.info.innerHTML = type;
 					self.remainHoles.push(this.hole);
-				}
+				};
 				this.dogs.push(dog);
 			}
 
 	},
 	start: function () {
-		if (!this.remainHoles.length) return alert('game over');
+		if (!this.remainHoles.length || this.over) return alert('game over');
 
 		var r = parseInt(Math.random()*this.remainHoles.length);
 		var num = this.remainHoles[r];
@@ -68,35 +79,40 @@ Dog.prototype = {
 		var self = this;
 		type = type || 'couple';
 		this.info = document.createElement('div');
-		this.info.mousetype = type;
+		this.info.type = type;
 		this.info.isLive = true;
 		this.info.innerHTML = type;
 
-		this.info.onclick = function (e) {
-			self.beat(e);
-		};
 		this.info.addEventListener('touchmove',function (e) {
 			e.preventDefault(); 
-			self.drag(e);
+			self.touchmove = true;
+		});
+		this.info.addEventListener('touchend',function (e) {
+			e.preventDefault(); 
+			if (self.touchmove){
+				self.drag(e);
+			}else{
+				self.beat(e);
+			}
+			self.touchmove = false;
 		});
 	},
 	beat: function (e) {
 		if(this.info.isLive){
 			this.info.isLive = false;
 			this.onbeat(e);
-			//this.info.style.display = 'none';
 		}
 	},
 	drag: function (e) {
 		if(this.info.isLive){
 			this.info.isLive = false;
-			this.ondrag();
-			this.info.src = 'none';
+			this.ondrag(e);
 		}
 	},
 	onbeat: function(e) {},
 	ondrag: function (e) {},
-	onend: function(e){}
+	onend: function(e) {},
+	onreset: function (e) {}
 }
 
 Game.init();
