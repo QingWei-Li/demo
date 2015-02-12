@@ -29,11 +29,12 @@ var Game = {
 					// body...
 				}
 				dog.onend = function () {
+					console.log(this.hole);
 					var li = self.holes[this.hole];
-					li.removeChild(this.info);
+					li.removeChild(li.dog.info);
 					li.dog = null;
+
 					self.remainHoles.push(this.hole);
-					console.log(self.remainHoles);
 				}
 				this.dogs.push(dog);
 			}
@@ -83,7 +84,7 @@ Dog.prototype = {
 		if(this.info.isLive){
 			this.info.isLive = false;
 			this.onbeat(e);
-			this.info.style.display = 'none';
+			//this.info.style.display = 'none';
 		}
 	},
 	drag: function (e) {
