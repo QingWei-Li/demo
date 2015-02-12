@@ -5,6 +5,20 @@ var Game = {
 	over: false,
 	message: '',
 	remainHoles:[],
+	scoreDog: 0,
+	scoreCouple: 0,
+	speed: 500,
+	addScoreDog:function () {
+		var elem = document.getElementById('dog');
+		this.scoreDog++;
+		elem.innerHTML = this.scoreDog;
+	},
+	addScoreCouple:function () {
+		var elem = document.getElementById('couple');
+		this.scoreCouple++;
+		elem.innerHTML = this.scoreCouple;
+		if (this.speed > 200) this.speed-=10;
+	},
 	init:function () {
 			var self = this;
 			var body = document.getElementsByTagName('body')[0];
@@ -26,6 +40,7 @@ var Game = {
 				dog.onbeat = function () {
 					if(this.info.type == 'couple'){
 						this.onend();
+						self.addScoreCouple();
 					}else{
 						self.over = true;
 					}
@@ -33,6 +48,15 @@ var Game = {
 				dog.ondrag = function () {
 					if(this.info.type == 'dog'){
 						this.onend();
+						self.addScoreDog();
+						
+						var li = self.holes[this.hole];
+						var dogSave = document.createElement('div');
+						dogSave.style.background = 'url(dog.jpg) -64px -0px no-repeat';
+						li.appendChild(dogSave);
+						setTimeout(function () {
+							li.removeChild(dogSave);	
+						},100);
 					}else{
 						self.over = true;
 					}
@@ -40,11 +64,10 @@ var Game = {
 				dog.onend = function () {
 					var li = self.holes[this.hole];
 					li.removeChild(li.dog.info);
-					
+
 					this.info.isLive = true;
 					var type = parseInt(Math.random()*8)>0?'couple':'dog';
 					this.info.type = type;
-					this.info.innerHTML = type;
 					self.remainHoles.push(this.hole);
 				};
 				this.dogs.push(dog);
@@ -65,7 +88,13 @@ var Game = {
 		var self = this;
 		setTimeout(function () {
 			self.start();
-		},200);
+		}, self.speed);
+	},
+	removeMsgBox: function () {
+			var startMsgBox = document.getElementById('start');
+			startMsgBox.style.display = 'none';
+			var fullbg = document.getElementById('fullbg');
+			fullbg.style.display = 'none';
 	}
 }
 
@@ -81,8 +110,11 @@ Dog.prototype = {
 		this.info = document.createElement('div');
 		this.info.type = type;
 		this.info.isLive = true;
-		this.info.innerHTML = type;
-
+		if(type == 'couple'){
+			this.info.style.background = 'url(dog.jpg) -128px -0px no-repeat';
+		}else{
+			this.info.style.background = 'url(dog.jpg) -0px -0px no-repeat';
+		}
 		this.info.addEventListener('touchmove',function (e) {
 			e.preventDefault(); 
 			self.touchmove = true;
@@ -116,4 +148,8 @@ Dog.prototype = {
 }
 
 Game.init();
-Game.start();
+
+var GameStart = function () {
+	Game.removeMsgBox();
+	Game.start();
+}

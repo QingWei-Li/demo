@@ -2,13 +2,19 @@
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
-	<title>随手拍拯救单身狗计划</title>
+	<title>拍死情侣拯救单身狗计划</title>
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
 	<link rel="stylesheet" href="base.css">
 </head>
 <body>
-	<h1>随手拍拯救单身狗计划</h1>
-	<p>拯救<span></span>只单身狗&nbsp;&nbsp;&nbsp;消灭<span></span>对情侣</p>
+	<div id='start'>
+		<h2>游戏规则</h2>
+		<p>拍死情侣（点击）、拯救单身狗（拖拽），时间不限，传播正能量！！！</p>
+		<button onclick="GameStart()">开始</button>
+	</div>
+	<div id='fullbg'></div>
+	<h1>拍死情侣拯救单身狗计划</h1>
+	<p>拯救 <span id='dog'>0</span> 只单身狗&nbsp;&nbsp;&nbsp;消灭 <span id='couple'>0</span> 对情侣</p>
 	<div id='main'>
 		<ul></ul>
 	</div>
