@@ -68,6 +68,11 @@ var Game = {
 					this.info.isLive = true;
 					var type = parseInt(Math.random()*8)>0?'couple':'dog';
 					this.info.type = type;
+					if(type == 'couple'){
+						this.info.style.background = 'url(dog.jpg) -128px -0px no-repeat';
+					}else{
+						this.info.style.background = 'url(dog.jpg) -0px -0px no-repeat';
+					}
 					self.remainHoles.push(this.hole);
 				};
 				this.dogs.push(dog);
@@ -75,7 +80,9 @@ var Game = {
 
 	},
 	start: function () {
-		if (!this.remainHoles.length || this.over) return alert('game over');
+		if (!this.remainHoles.length || this.over) {
+			return MsgBox.show();
+		};
 
 		var r = parseInt(Math.random()*this.remainHoles.length);
 		var num = this.remainHoles[r];
@@ -90,14 +97,36 @@ var Game = {
 			self.start();
 		}, self.speed);
 	},
-	removeMsgBox: function () {
-			var startMsgBox = document.getElementById('start');
-			startMsgBox.style.display = 'none';
-			var fullbg = document.getElementById('fullbg');
-			fullbg.style.display = 'none';
+	reset: function () {
+		var ul = document.getElementsByTagName('ul')[0];
+		ul.innerHTML = '';
+		this.holes = [];
+		this.dogs = [];
+		this.over = false;
+		this.remainHoles = [];
+		this.scoreDog = 0;
+		this.scoreCouple = 0;
+		this.speed = 500;
 	}
 }
+var MsgBox = {
+	msgBox: document.getElementById('start'),
+	fullbg: document.getElementById('fullbg'),
+	show: function () {
+		this.msgBox.style.display = 'block';
+		this.fullbg.style.display = 'block';
 
+		var head = this.msgBox.getElementsByTagName('h2')[0];
+		var p = this.msgBox.getElementsByTagName('p')[0];
+		var button = this.msgBox.getElementsByTagName('button')[0];
+		head.innerHTML = '游戏结束';
+		button.innerHTML = '重新开始';
+	},
+	hide: function () {
+		this.msgBox.style.display = 'none';
+		this.fullbg.style.display = 'none';
+	}
+}
 var Dog = function(type){
 	this.info = null;
 	this.hole = -1;
@@ -147,9 +176,9 @@ Dog.prototype = {
 	onreset: function (e) {}
 }
 
-Game.init();
-
 var GameStart = function () {
-	Game.removeMsgBox();
+	Game.reset();
+	Game.init();
+	MsgBox.hide();
 	Game.start();
 }
