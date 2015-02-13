@@ -179,6 +179,7 @@ var MsgBox = {
 		}
 		if (Game.msgHead != '游戏结束' && Game.msgHead != '打到狗了'){
 			document.title = document.title + '获得'+Game.msgHead+'称号,'+Game.msgContent;
+			Game.msgContent = '继续继续';
 		}else{
 			document.title += '来和我一起拯救单身狗吧';
 		}
@@ -224,7 +225,8 @@ Dog.prototype = {
 			tempXY.y = touchXY.starty;
 			var touchX =Math.abs(touchXY.endx - touchXY.startx);
 			var touchY = Math.abs(touchXY.endy - touchXY.starty);
-			var ismove = touchX > 10|| touchY > 10;
+			console.log(touchX+'y:-----'+touchY);
+			var ismove = touchX > 30|| touchY > 30;
 			if (ismove){
 				self.drag(e);
 			}else{
