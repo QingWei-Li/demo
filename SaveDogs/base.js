@@ -219,7 +219,16 @@ Dog.prototype = {
 	onreset: function (e) {}
 }
 
-Game.init();
+var loadImage = function () {
+	var main = document.getElementById('main');
+	var liWidth = Math.floor((main.clientWidth - 11) / 5);
+	var imageSize = 1;
+	if(liWidth<64) imageSize = 0;
+	var tempImg = document.createElement('img');
+	tempImg.src = 'dog'+(imageSize?'@2x':'')+'.jpg';
+	main.appendChild(tempImg);
+}
+loadImage();
 
 var GameStart = function () {
 	Game.reset();
