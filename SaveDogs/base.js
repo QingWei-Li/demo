@@ -217,7 +217,7 @@ Dog.prototype = {
 			e.preventDefault(); 
 			var touchX =Math.abs(touchXY.endx - touchXY.startx);
 			var touchY = Math.abs(touchXY.endy - touchXY.starty);
-			var ismove = (touchX > 5 && touchX < 50) || (touchY> 5 && touchY< 50);
+			var ismove = touchX > 5|| touchY> 5;
 
 			if (ismove){
 				self.drag(e);
