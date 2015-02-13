@@ -1,5 +1,9 @@
 var MAX_NUMBER = 30;
 var imageSize = 1;
+var tempXY = {
+	x: -1,
+	y: -1
+};
 var Game = {
 	holes: [],
 	dogs: [],
@@ -66,7 +70,7 @@ var Game = {
 						},100);
 					}else{
 						self.over = true;
-						self.msgHead = '挑战失败';
+						self.msgHead = '游戏结束';
 					}
 				};
 				dog.onend = function () {
@@ -173,7 +177,7 @@ var MsgBox = {
 		}else if(Game.remainHoles && Game.scoreCouple == 0 && Game.scoreDog == 0){
 			Game.msgContent = "╮(╯▽╰)╭";
 		}
-		if (Game.msgHead != '挑战失败' && Game.msgHead != '打到狗了'){
+		if (Game.msgHead != '游戏结束' && Game.msgHead != '打到狗了'){
 			document.title = document.title + '获得'+Game.msgHead+'称号,'+Game.msgContent;
 		}else{
 			document.title += '来和我一起拯救单身狗吧';
@@ -215,10 +219,12 @@ Dog.prototype = {
 		});
 		TouchFix.bind(this.info,'touchend',function(e){
 			e.preventDefault(); 
+			if (Math.abs(touchXY.startx - tempXY.x) <5 && Math.abs(touchXY.starty - tempXY.y)<5) return;
+			tempXY.x = touchXY.startx;
+			tempXY.y = touchXY.starty;
 			var touchX =Math.abs(touchXY.endx - touchXY.startx);
 			var touchY = Math.abs(touchXY.endy - touchXY.starty);
-			var ismove = touchX > 5|| touchY> 5;
-
+			var ismove = touchX > 10|| touchY > 10;
 			if (ismove){
 				self.drag(e);
 			}else{
