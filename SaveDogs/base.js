@@ -47,7 +47,7 @@ var Game = {
 						self.addScoreCouple();
 					}else{
 						self.over = true;
-						self.msgHead = '打到狗了！';
+						self.msgHead = '打到狗了';
 					}
 				};
 				dog.ondrag = function () {
@@ -66,6 +66,7 @@ var Game = {
 						},100);
 					}else{
 						self.over = true;
+						self.msgHead = '挑战失败';
 					}
 				};
 				dog.onend = function () {
@@ -122,20 +123,49 @@ var MsgBox = {
 	show: function () {
 		this.msgBox.style.display = 'block';
 		this.fullbg.style.display = 'block';
+		this.msgBox.style.height = '50%';
 
 		var head = this.msgBox.getElementsByTagName('h2')[0];
 		var p = this.msgBox.getElementsByTagName('p')[0];
 		var button = this.msgBox.getElementsByTagName('button')[0];
 
+		this.Achievement();
+
 		head.innerHTML = Game.msgHead?Game.msgHead:'游戏结束';
 		p.innerHTML = '你一共消灭了 '+Game.scoreCouple+' 对情侣, 并拯救了 '+ Game.scoreDog+' 条单身狗。';
-		p.innerHTML += '分享朋友圈吧！';
+		p.innerHTML += '<br>'+Game.msgContent;
+		p.innerHTML += '<br>分享朋友圈让小伙伴一起加入吧！';
 		button.innerHTML = '重新开始';
-		document.title = '拍死情侣拯救单身狗计划-我刚才消灭了'+Game.scoreCouple+'对情侣, 拯救了'+ Game.scoreDog+'条单身狗。不服来战';
 	},
 	hide: function () {
 		this.msgBox.style.display = 'none';
 		this.fullbg.style.display = 'none';
+	},
+	Achievement: function () {
+		document.title = '拍死情侣拯救单身狗计划-我刚才消灭了'+Game.scoreCouple+'对情侣, 拯救了'+ Game.scoreDog+'条单身狗。';
+		if (Game.remainHoles.length <=0 && Game.scoreCouple == 0 && Game.scoreDog == 0) {
+			Game.msgHead = "旁观狗";
+			Game.msgContent = "\"我就看看不说话\"";
+		}else if(Game.scoreCouple <= 0 && Game.scoreCouple > 300){
+			Game.msgHead = "屏幕没坏吧";
+			Game.msgContent = "\"我真的是寂寞了\"";
+		}else if(Game.scoreCouple <= 0 && Game.scoreDog > 50){
+			Game.msgHead = "注孤生";
+			Game.msgContent = "\"其实我也是单身狗\"";
+		}else if(Game.scoreCouple <= 0 && Game.scoreDog && Game.scoreCouple == 0){
+			Game.msgHead = "专业单身狗救助员";
+			Game.msgContent = "\"帮助同类是我应尽的义务\"";
+		}else if(Game.remainHoles <= 0 && Game.scoreCouple && Game.scoreDog == 0){
+			Game.msgHead = "大FFF团优秀团员";
+			Game.msgContent = "\"为什么我的手上多了汽油和火把\"";
+		}else if(Game.remainHoles && Game.scoreCouple == 0 && Game.scoreDog == 0){
+			Game.msgContent = "╮(╯▽╰)╭";
+		}
+		if (Game.msgHead != '挑战失败' && Game.msgHead != '打到狗了'){
+			document.title = document.title + '获得'+Game.msgHead+'称号,'+Game.msgContent;
+		}else{
+			document.title += '来和我一起拯救单身狗吧';
+		}
 	}
 }
 var Dog = function(type){
