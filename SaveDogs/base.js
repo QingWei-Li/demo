@@ -109,12 +109,18 @@ var Game = {
 		var ul = document.getElementsByTagName('ul')[0];
 		ul.innerHTML = '';
 		this.holes = [];
+		this.msgHead = '';
+		this.msgContent = '';
 		this.dogs = [];
 		this.over = false;
 		this.remainHoles = [];
 		this.scoreDog = 0;
 		this.scoreCouple = 0;
 		this.speed = 500;
+		var elem = document.getElementById('dog');
+		elem.innerHTML = 0;
+		elem = document.getElementById('couple');
+		elem.innerHTML = 0;
 	}
 }
 var MsgBox = {
@@ -193,18 +199,31 @@ Dog.prototype = {
 		}else{
 			this.info.style.background = 'url(dog'+(imageSize?'@2x':'')+'.jpg) -0px -0px no-repeat';
 		}
+		var touchXY = {};
+		TouchFix.bind(this.info,'touchstart',function(e){
+			e.preventDefault(); 
+			var t = e.touches[0];
+			touchXY.startx=t.pageX;
+    		touchXY.starty=t.pageY;
+
+		});
 		TouchFix.bind(this.info,'touchmove',function(e){
 			e.preventDefault(); 
-			self.touchmove = true;
+			var t = e.touches[0];
+			touchXY.endx=t.pageX;
+    		touchXY.endy=t.pageY;
 		});
 		TouchFix.bind(this.info,'touchend',function(e){
 			e.preventDefault(); 
-			if (self.touchmove){
+			var touchX =Math.abs(touchXY.endx - touchXY.startx);
+			var touchY = Math.abs(touchXY.endy - touchXY.starty);
+			var ismove = (touchX > 5 && touchX < 50) || (touchY> 5 && touchY< 50);
+
+			if (ismove){
 				self.drag(e);
 			}else{
 				self.beat(e);
 			}
-			self.touchmove = false;
 		});
 	},
 	beat: function (e) {
