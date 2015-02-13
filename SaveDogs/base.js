@@ -146,10 +146,16 @@ var MsgBox = {
 		if (Game.remainHoles.length <=0 && Game.scoreCouple == 0 && Game.scoreDog == 0) {
 			Game.msgHead = "旁观狗";
 			Game.msgContent = "\"我就看看不说话\"";
-		}else if(Game.scoreCouple <= 0 && Game.scoreCouple > 300){
+		}else if(Game.scoreCouple > 1000){
+			Game.msgHead = "我是传奇";
+			Game.msgContent = "\"还有谁！！！！！\"";
+		}else if(Game.scoreCouple > 300){
 			Game.msgHead = "屏幕没坏吧";
 			Game.msgContent = "\"我真的是寂寞了\"";
-		}else if(Game.scoreCouple <= 0 && Game.scoreDog > 50){
+		}else if(Game.scoreCouple == 1 && Game.scoreDog == 1){
+			Game.msgHead = "狗,男,女";
+			Game.msgContent = "\"嘿嘿嘿嘿嘿嘿\"";
+		}else if(Game.scoreDog > 50){
 			Game.msgHead = "注孤生";
 			Game.msgContent = "\"其实我也是单身狗\"";
 		}else if(Game.scoreCouple <= 0 && Game.scoreDog && Game.scoreCouple == 0){
