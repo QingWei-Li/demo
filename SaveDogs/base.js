@@ -219,6 +219,8 @@ Dog.prototype = {
 	onreset: function (e) {}
 }
 
+Game.init();
+
 var GameStart = function () {
 	Game.reset();
 	Game.init();
