@@ -226,6 +226,7 @@ var loadImage = function () {
 	if(liWidth<64) imageSize = 0;
 	var tempImg = document.createElement('img');
 	tempImg.src = 'dog'+(imageSize?'@2x':'')+'.jpg';
+	tempImg.style.display = 'none';
 	main.appendChild(tempImg);
 }
 loadImage();
