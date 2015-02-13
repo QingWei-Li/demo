@@ -1,4 +1,5 @@
 var MAX_NUMBER = 30;
+var imageSize = 1;
 var Game = {
 	holes: [],
 	dogs: [],
@@ -26,11 +27,13 @@ var Game = {
 			body.style.width = window.innerWidth + 'px';
 			var main = document.getElementById('main');
 			var ul = document.getElementsByTagName('ul')[0];
+			var liWidth = Math.floor((main.clientWidth - 11) / 5);
+			if(liWidth<64) imageSize = 0;
 
 			for (var i = 0; i < MAX_NUMBER; i++) {
 				//地洞初始化
 				var li = document.createElement('li');
-				li.style.width = Math.floor((main.clientWidth - 11) / 5) + 'px';
+				li.style.width = liWidth + 'px';
 				li.style.height = li.style.width;
 				ul.appendChild(li);
 				this.holes.push(li);
@@ -54,7 +57,9 @@ var Game = {
 						
 						var li = self.holes[this.hole];
 						var dogSave = document.createElement('div');
-						dogSave.style.background = 'url(dog.jpg) -64px -0px no-repeat';
+						dogSave.style.width = 64*(imageSize?1:0.75)+'px';
+						dogSave.style.height = dogSave.style.width;
+						dogSave.style.background = 'url(dog'+(imageSize?'@2x':'')+'.jpg) -'+64*(imageSize?1:0.75)+'px -0px no-repeat';
 						li.appendChild(dogSave);
 						setTimeout(function () {
 							li.removeChild(dogSave);	
@@ -71,9 +76,9 @@ var Game = {
 					var type = parseInt(Math.random()*8)>0?'couple':'dog';
 					this.info.type = type;
 					if(type == 'couple'){
-						this.info.style.background = 'url(dog.jpg) -128px -0px no-repeat';
+						this.info.style.background = 'url(dog'+(imageSize?'@2x':'')+'.jpg) -'+128*(imageSize?1:0.75)+'px -0px no-repeat';
 					}else{
-						this.info.style.background = 'url(dog.jpg) -0px -0px no-repeat';
+						this.info.style.background = 'url(dog'+(imageSize?'@2x':'')+'.jpg) -0px -0px no-repeat';
 					}
 					self.remainHoles.push(this.hole);
 				};
@@ -124,6 +129,7 @@ var MsgBox = {
 
 		head.innerHTML = Game.msgHead?Game.msgHead:'游戏结束';
 		p.innerHTML = '你一共消灭了 '+Game.scoreCouple+' 对情侣, 并拯救了 '+ Game.scoreDog+' 条单身狗。';
+		p.innerHTML += '分享朋友圈吧！';
 		button.innerHTML = '重新开始';
 		document.title = '拍死情侣拯救单身狗计划-我刚才消灭了'+Game.scoreCouple+'对情侣, 拯救了'+ Game.scoreDog+'条单身狗。不服来战';
 	},
@@ -144,10 +150,12 @@ Dog.prototype = {
 		this.info = document.createElement('div');
 		this.info.type = type;
 		this.info.isLive = true;
+		this.info.style.width = 64*(imageSize?1:0.75)+'px';
+		this.info.style.height = this.info.style.width;
 		if(type == 'couple'){
-			this.info.style.background = 'url(dog.jpg) -128px -0px no-repeat';
+			this.info.style.background = 'url(dog'+(imageSize?'@2x':'')+'.jpg) -'+128*(imageSize?1:0.75)+'px -0px no-repeat';
 		}else{
-			this.info.style.background = 'url(dog.jpg) -0px -0px no-repeat';
+			this.info.style.background = 'url(dog'+(imageSize?'@2x':'')+'.jpg) -0px -0px no-repeat';
 		}
 		this.info.addEventListener('touchmove',function (e) {
 			e.preventDefault(); 
