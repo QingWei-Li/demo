@@ -142,7 +142,7 @@ var MsgBox = {
 		this.fullbg.style.display = 'none';
 	},
 	Achievement: function () {
-		document.title = '拍死情侣拯救单身狗计划-我刚才消灭了'+Game.scoreCouple+'对情侣, 拯救了'+ Game.scoreDog+'条单身狗。';
+		document.title = '我消灭了'+Game.scoreCouple+'对情侣, 拯救了'+ Game.scoreDog+'条单身狗。';
 		if (Game.remainHoles.length <=0 && Game.scoreCouple == 0 && Game.scoreDog == 0) {
 			Game.msgHead = "旁观狗";
 			Game.msgContent = "\"我就看看不说话\"";
